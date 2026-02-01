@@ -38,7 +38,7 @@ export function LandingFooter() {
             Words have the power to connect hearts
           </p> */}
           <p className="mt-4 text-sm text-muted-foreground/40">
-            - Made with ❤️ by Rohan & Tejas
+            - Made by Rohan & Tejas
           </p>
         </div>
       </div>
