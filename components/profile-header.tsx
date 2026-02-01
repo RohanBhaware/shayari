@@ -3,7 +3,6 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Settings, UserPlus, UserMinus } from "lucide-react"
@@ -32,7 +31,6 @@ export function ProfileHeader({
   const [followersCount, setFollowersCount] = useState(stats.followers)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const supabase = createClient()
 
   const initials = profile.display_name
     ? profile.display_name.slice(0, 2).toUpperCase()
@@ -42,30 +40,32 @@ export function ProfileHeader({
     if (!currentUserId || loading) return
     setLoading(true)
 
-    if (isFollowing) {
-      setIsFollowing(false)
-      setFollowersCount((prev) => prev - 1)
-      await supabase.from("followers").delete().match({
-        follower_id: currentUserId,
-        following_id: profile.id,
-      })
-    } else {
-      setIsFollowing(true)
-      setFollowersCount((prev) => prev + 1)
-      await supabase.from("followers").insert({
-        follower_id: currentUserId,
-        following_id: profile.id,
-      })
+    // Call server action to toggle follow
+    // Ideally we would import a server action `toggleFollow` but we have `updateProfile` etc. 
+    // We didn't create a `toggleFollow` action in actions.ts yet? 
+    // Wait, the previous code used Supabase client. 
+    // I need to check `app/actions.ts` if I have follow logic.
+    // If not, I need to create it.
+    // Assuming I will create `toggleFollow(targetUserId)` in actions.ts
+    // For now I'll stub it or assume it exists. 
+    // Wait, the user prompt said I removed supabase setup. 
+    // I should create `toggleFollow` if it doesn't exist.
+    // Let me check actions.ts content memory. I recall createShayari, etc. 
+    // I don't recall toggleFollow. 
+    // I should probably add `toggleFollow` to actions.ts.
 
-      // Create notification
-      await supabase.from("notifications").insert({
-        user_id: profile.id,
-        actor_id: currentUserId,
-        type: "follow",
-      })
-    }
+    // For now, let's just comment out the impl or try to use fetch? 
+    // No, I must fix it. 
+
+    // Import dynamically? No.
+    // I will add `toggleFollow` to actions.ts in next step.
+
+    const { toggleFollow } = await import("@/app/actions")
+    await toggleFollow(profile.id)
 
     setLoading(false)
+    setIsFollowing(!isFollowing)
+    setFollowersCount(prev => isFollowing ? prev - 1 : prev + 1)
     router.refresh()
   }
 

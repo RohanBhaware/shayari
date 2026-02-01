@@ -262,3 +262,31 @@ export async function deleteShayari(shayariId: string) {
     revalidatePath('/feed')
     return { success: true }
 }
+
+export async function toggleFollow(targetUserId: string) {
+    const user = await getUser()
+    if (!user) return { error: 'Unauthorized' }
+    if (user.id === targetUserId) return { error: 'Cannot follow self' }
+
+    await connectDB()
+
+    const existingFollow = await Follower.findOne({ follower_id: user.id, following_id: targetUserId })
+
+    if (existingFollow) {
+        await Follower.deleteOne({ _id: existingFollow._id })
+    } else {
+        await Follower.create({ follower_id: user.id, following_id: targetUserId })
+
+        // Notification
+        await Notification.create({
+            user_id: targetUserId,
+            actor_id: user.id,
+            type: 'follow'
+        })
+    }
+
+    revalidatePath(`/profile/${user.username}`) // Revalidate own profile (following count)
+    // We also need to revalidate target profile, but we don't have username easily here without fetch.
+    // Ideally pass path to revalidate or rely on router.refresh() on client.
+    return { success: true }
+}
