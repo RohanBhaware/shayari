@@ -84,11 +84,11 @@ export default async function LandingPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {/* <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {topShayaris.map((shayari) => (
                 <ShayariCard key={shayari.id} shayari={shayari} />
               ))}
-            </div>
+            </div> */}
           </div>
         </section>
         <LandingFeatures />
