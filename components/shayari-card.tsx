@@ -90,7 +90,7 @@ export function ShayariCard({ shayari, currentUserId, onDelete }: ShayariCardPro
   }
 
   async function handleShare() {
-    const url = `${window.location.origin} /shayari/${shayari.id} `
+    const url = `${window.location.origin}/shayari/${shayari.id}`
     if (navigator.share) {
       await navigator.share({
         title: "Shayari",
@@ -126,7 +126,7 @@ export function ShayariCard({ shayari, currentUserId, onDelete }: ShayariCardPro
           {/* Header */}
           <div className="flex items-start justify-between mb-4">
             <Link
-              href={`/ profile / ${profile?.username || shayari.user_id} `}
+              href={`/profile/${profile?.username || shayari.user_id}`}
               className="flex items-center gap-3 group"
             >
               <Avatar className="h-10 w-10 border border-border transition-transform group-hover:scale-105">
@@ -172,7 +172,7 @@ export function ShayariCard({ shayari, currentUserId, onDelete }: ShayariCardPro
           </div>
 
           {/* Content */}
-          <Link href={`/ shayari / ${shayari.id} `}>
+          <Link href={`/shayari/${shayari.id}`}>
             <p className="font-serif text-lg leading-relaxed text-foreground whitespace-pre-wrap">
               {shayari.content}
             </p>
@@ -198,7 +198,7 @@ export function ShayariCard({ shayari, currentUserId, onDelete }: ShayariCardPro
               </Button>
 
               <Button variant="ghost" size="sm" asChild className="gap-1.5 h-9 px-3 bg-transparent">
-                <Link href={`/ shayari / ${shayari.id} `}>
+                <Link href={`/shayari/${shayari.id}`}>
                   <MessageCircle className="h-4 w-4" />
                   <span className="text-sm">{shayari.comments_count || 0}</span>
                 </Link>
