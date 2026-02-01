@@ -72,7 +72,6 @@ export default async function LandingPage() {
       {/* Main Content */}
       <main>
         <LandingHero />
-        <LandingFeatures />
         {/* Featured Shayaris */}
         <section className="py-20 md:py-32 relative">
           <div className="container px-4 mx-auto relative z-10">
@@ -92,6 +91,7 @@ export default async function LandingPage() {
             </div>
           </div>
         </section>
+        <LandingFeatures />
       </main>
 
       <LandingFooter />

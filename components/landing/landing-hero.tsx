@@ -16,7 +16,7 @@ export function LandingHero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
-      
+
       {/* Floating shayari snippets */}
       {floatingShayaris.map((shayari, index) => (
         <div
@@ -50,7 +50,7 @@ export function LandingHero() {
 
         {/* Subheading */}
         <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground text-pretty">
-          Join a community of poets and dreamers. Share your shayaris, connect with 
+          Join a community of poets and dreamers. Share your shayaris, connect with
           kindred spirits, and let your words touch hearts across the world.
         </p>
 
@@ -67,21 +67,6 @@ export function LandingHero() {
           </Button>
         </div>
 
-        {/* Stats */}
-        <div className="mt-20 grid grid-cols-3 gap-8 border-t border-border/30 pt-10">
-          <div>
-            <div className="font-serif text-3xl font-bold text-foreground">10K+</div>
-            <div className="mt-1 text-sm text-muted-foreground">Active Poets</div>
-          </div>
-          <div>
-            <div className="font-serif text-3xl font-bold text-foreground">50K+</div>
-            <div className="mt-1 text-sm text-muted-foreground">Shayaris Shared</div>
-          </div>
-          <div>
-            <div className="font-serif text-3xl font-bold text-foreground">100K+</div>
-            <div className="mt-1 text-sm text-muted-foreground">Hearts Touched</div>
-          </div>
-        </div>
       </div>
 
       {/* Scroll indicator */}

@@ -22,20 +22,6 @@ export function LandingFooter() {
           </Link>
 
           {/* Links */}
-          <nav className="flex items-center gap-6 text-sm text-muted-foreground">
-            <Link href="/about" className="transition-colors hover:text-foreground">
-              About
-            </Link>
-            <Link href="/privacy" className="transition-colors hover:text-foreground">
-              Privacy
-            </Link>
-            <Link href="/terms" className="transition-colors hover:text-foreground">
-              Terms
-            </Link>
-            <Link href="/contact" className="transition-colors hover:text-foreground">
-              Contact
-            </Link>
-          </nav>
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
@@ -48,8 +34,11 @@ export function LandingFooter() {
           <p className="font-serif text-lg italic text-muted-foreground/60">
             &ldquo;शब्दों में वो ताकत है, जो दिलों को जोड़ती है&rdquo;
           </p>
-          <p className="mt-1 text-sm text-muted-foreground/40">
+          {/* <p className="mt-1 text-sm text-muted-foreground/40">
             Words have the power to connect hearts
+          </p> */}
+          <p className="mt-4 text-sm text-muted-foreground/40">
+            - Made with ❤️ by Rohan & Tejas
           </p>
         </div>
       </div>

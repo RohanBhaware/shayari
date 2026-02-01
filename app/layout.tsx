@@ -5,17 +5,17 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import PlayGuard from '@/components/play-guard'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: '--font-inter',
 })
 
-const playfair = Playfair_Display({ 
+const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: '--font-playfair',
 })
 
-const geistMono = Geist_Mono({ 
+const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: '--font-geist-mono',
 })
@@ -46,7 +46,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased min-h-screen">
-        <PlayGuard />
         {children}
       </body>
     </html>
