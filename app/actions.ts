@@ -290,3 +290,36 @@ export async function toggleFollow(targetUserId: string) {
     // Ideally pass path to revalidate or rely on router.refresh() on client.
     return { success: true }
 }
+
+export async function updateShayari(prevState: ActionState, formData: FormData): Promise<ActionState> {
+    const user = await getUser()
+    if (!user) return { error: 'Unauthorized' }
+
+    try {
+        const shayariId = formData.get('shayariId') as string
+        const content = formData.get('content') as string
+        const mood = formData.get('mood') as string
+        const language = formData.get('language') as string
+
+        if (!shayariId || !content || !mood) return { error: 'Missing required fields' }
+
+        await connectDB()
+
+        const shayari = await Shayari.findById(shayariId)
+        if (!shayari) return { error: 'Not found' }
+        if (shayari.user_id.toString() !== user.id) return { error: 'Unauthorized' }
+
+        await Shayari.findByIdAndUpdate(shayariId, {
+            content,
+            mood,
+            language
+        })
+
+        revalidatePath('/feed')
+        revalidatePath(`/shayari/${shayariId}`)
+        revalidatePath(`/profile/${user.username}`)
+        return { success: true }
+    } catch (error) {
+        return { error: 'Failed to update shayari' }
+    }
+}

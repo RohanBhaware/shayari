@@ -25,11 +25,14 @@ export default async function SavedPage() {
   const savedShayariIds = validSaves.map(s => s.shayari_id._id.toString())
 
   // Get user's likes
-  const likesDocs = await Like.find({ user_id: user.id, shayari_id: { $in: savedShayariIds } }).select('shayari_id')
+  const likesDocs = await Like.find({ user_id: user.id.toString(), shayari_id: { $in: savedShayariIds } }).select('shayari_id')
   const likedIds = likesDocs.map((l) => l.shayari_id.toString())
 
   const shayaris = validSaves.map((s) => ({
     ...s.shayari_id,
+    _id: undefined,
+    __v: undefined,
+    user_id: s.shayari_id.user_id._id.toString(),
     id: s.shayari_id._id.toString(),
     created_at: s.shayari_id.created_at.toISOString(),
     profiles: {

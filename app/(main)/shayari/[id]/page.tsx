@@ -53,7 +53,7 @@ export default async function ShayariPage({ params }: ShayariPageProps) {
     ...shayariDoc,
     _id: undefined,
     __v: undefined,
-    user_id: undefined,
+    user_id: shayariDoc.user_id._id.toString(),
     id: shayariDoc._id.toString(),
     created_at: shayariDoc.created_at.toISOString(),
     profiles: {
@@ -72,7 +72,7 @@ export default async function ShayariPage({ params }: ShayariPageProps) {
     ...c,
     _id: undefined,
     __v: undefined,
-    user_id: undefined,
+    user_id: c.user_id._id.toString(),
     shayari_id: undefined,
     id: c._id.toString(),
     created_at: c.created_at.toISOString(),

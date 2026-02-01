@@ -74,7 +74,7 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
     ...s,
     _id: undefined,
     __v: undefined,
-    user_id: undefined,
+    user_id: s.user_id._id.toString(),
     id: s._id.toString(),
     created_at: s.created_at.toISOString(),
     profiles: {

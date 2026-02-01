@@ -1,11 +1,41 @@
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { ArrowRight, Feather, Heart, Sparkles, Quote } from "lucide-react"
+import { connectDB } from "@/lib/db"
+import { Shayari, User } from "@/lib/models"
 import { LandingHero } from "@/components/landing/landing-hero"
 import { LandingFeatures } from "@/components/landing/landing-features"
-import { LandingTestimonials } from "@/components/landing/landing-testimonials"
+import { ShayariCard } from "@/components/shayari-card"
 import { LandingFooter } from "@/components/landing/landing-footer"
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  await connectDB()
+
+  const topShayarisDocs = await Shayari.find()
+    .sort({ likes_count: -1 })
+    .limit(3)
+    .populate({ path: 'user_id', model: User, select: 'username display_name avatar_url' })
+    .lean() as any[]
+
+  const topShayaris = topShayarisDocs.map(s => ({
+    ...s,
+    _id: undefined,
+    __v: undefined,
+    user_id: s.user_id._id.toString(),
+    id: s._id.toString(),
+    created_at: s.created_at.toISOString(),
+    profiles: {
+      id: s.user_id._id.toString(),
+      username: s.user_id.username,
+      display_name: s.user_id.display_name,
+      avatar_url: s.user_id.avatar_url
+    },
+    likes_count: s.likes_count || 0,
+    comments_count: s.comments_count || 0,
+    is_liked: false, // Landing page user is guests
+    is_saved: false,
+  }))
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -43,7 +73,25 @@ export default function LandingPage() {
       <main>
         <LandingHero />
         <LandingFeatures />
-        <LandingTestimonials />
+        {/* Featured Shayaris */}
+        <section className="py-20 md:py-32 relative">
+          <div className="container px-4 mx-auto relative z-10">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+                Loved by Poets Everywhere
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                Discover the most touching verses from our community.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {topShayaris.map((shayari) => (
+                <ShayariCard key={shayari.id} shayari={shayari} />
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <LandingFooter />

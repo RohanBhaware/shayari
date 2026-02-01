@@ -54,7 +54,7 @@ export default async function FeedPage() {
     ...s,
     _id: undefined,
     __v: undefined,
-    user_id: undefined,
+    user_id: s.user_id._id.toString(),
     id: s._id.toString(), // critical: convert _id to string id
     created_at: s.created_at.toISOString(),
     profiles: {

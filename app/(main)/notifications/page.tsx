@@ -22,6 +22,11 @@ export default async function NotificationsPage() {
 
   const notifications = notificationsDocs.map(n => ({
     ...n,
+    _id: undefined,
+    __v: undefined,
+    user_id: undefined,
+    actor_id: undefined,
+    shayari_id: undefined,
     id: n._id.toString(),
     created_at: n.created_at.toISOString(),
     is_read: n.read,
